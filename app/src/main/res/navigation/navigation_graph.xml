@@ -9,5 +9,14 @@
         android:id="@+id/mainFragment"
         android:name="com.example.tic_tac_toe.ui.main.MainFragment"
         android:label="main_fragment"
-        tools:layout="@layout/main_fragment" />
+        tools:layout="@layout/main_fragment" >
+        <action
+            android:id="@+id/action_mainFragment_to_twoPlayersFragment"
+            app:destination="@id/twoPlayersFragment"
+            app:popUpTo="@id/mainFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/twoPlayersFragment"
+        android:name="com.example.tic_tac_toe.ui.two_players.TwoPlayersFragment"
+        android:label="TwoPlayersFragment" />
 </navigation>

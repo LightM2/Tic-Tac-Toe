@@ -9,20 +9,72 @@
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/main"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <TextView
-            android:id="@+id/message"
+        <androidx.constraintlayout.widget.Guideline android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/startGL"
+            app:layout_constraintGuide_begin="16dp"
+            android:orientation="vertical"/>
+
+        <androidx.constraintlayout.widget.Guideline
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="MainFragment"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            android:id="@+id/endGL"
+            app:layout_constraintGuide_end="16dp"
+            android:orientation="vertical"/>
+
+        <androidx.constraintlayout.widget.Guideline
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/topGL"
+            app:layout_constraintGuide_begin="16dp"
+            android:orientation="horizontal"/>
+
+        <androidx.constraintlayout.widget.Guideline
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/bottomGL"
+            app:layout_constraintGuide_end="6dp"
+            android:orientation="horizontal"/>
+
+        <TextView
+            android:id="@+id/logo_text_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="36dp"
+            android:text="@string/app_name"
+            android:textSize="30sp"
+            app:layout_constraintEnd_toStartOf="@id/endGL"
+            app:layout_constraintStart_toEndOf="@id/startGL"
+            app:layout_constraintTop_toBottomOf="@id/topGL" />
+
+        <Button
+            android:id="@+id/one_player_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="32dp"
+            android:text="@string/one_player_string"
+            android:onClick="@{(view) -> viewModel.onClick(view)}"
+            app:layout_constraintBottom_toTopOf="@+id/bottomGL"
+            app:layout_constraintEnd_toStartOf="@id/endGL"
+            app:layout_constraintStart_toStartOf="@id/startGL"
+            app:layout_constraintTop_toTopOf="@+id/topGL" />
+
+        <Button
+            android:id="@+id/two_players_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="32dp"
+            android:text="@string/two_players_string"
+            android:onClick="@{(view) -> viewModel.onClick(view)}"
+            app:layout_constraintEnd_toStartOf="@id/endGL"
+            app:layout_constraintStart_toEndOf="@id/startGL"
+            app:layout_constraintTop_toBottomOf="@+id/one_player_button" />
+
 
     </androidx.constraintlayout.widget.ConstraintLayout>
+
 
 </layout>
