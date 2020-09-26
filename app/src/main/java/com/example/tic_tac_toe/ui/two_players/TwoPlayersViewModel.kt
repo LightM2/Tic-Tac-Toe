@@ -1,13 +1,17 @@
 package com.example.tic_tac_toe.ui.two_players
 
+import android.os.CountDownTimer
 import android.util.Log
 import android.view.View
+import android.view.View.INVISIBLE
+import android.view.View.VISIBLE
 import androidx.databinding.Observable
 import androidx.databinding.PropertyChangeRegistry
 import androidx.hilt.Assisted
 import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
+import androidx.navigation.findNavController
 
 class TwoPlayersViewModel
 @ViewModelInject
@@ -19,16 +23,25 @@ constructor(
 
     private var lastMove = ""
 
+    var resultVisibility = INVISIBLE
+
+    var resultText = ""
+
     val board: MutableList<Cell> = mutableListOf(
             Cell(0,0), Cell(0,1), Cell(0,2),
             Cell(1,0), Cell(1,1), Cell(1,2),
             Cell(2,0), Cell(2,1), Cell(2,2)
     )
 
-    private val boardMoves: MutableList<Int> = mutableListOf(
-            0,0,0,
-            0,0,0,
-            0,0,0)
+    fun replayClick(){
+        board.forEach { it.clear() }
+        resultVisibility = INVISIBLE
+        notifyChange()
+    }
+
+    fun backwardClick(view: View){
+        view.findNavController().popBackStack()
+    }
 
     fun onClick(cell: Cell) {
         Log.d(TAG, "OnClick")
@@ -92,11 +105,38 @@ constructor(
             }
 
             when {
-                winCombination.contains(xMove) -> Log.d(TAG, "X win")
-                winCombination.contains(oMove) -> Log.d(TAG, "O win")
+                winCombination.contains(xMove) -> {
+                    showResult("X Win")
+                    Log.d(TAG, "X win")
+                }
+                winCombination.contains(oMove) -> {
+                    showResult("O Win")
+                    Log.d(TAG, "O win")
+                }
+                notEmptyCell == board.size -> {
+                    showResult("Dead Heat")
+                    Log.d(TAG, "Dead heat")
+                }
             }
 
         }
+    }
+
+    private fun showResult(result: String){
+        val timer = object: CountDownTimer(5000, 5000){
+            override fun onTick(p0: Long) {
+                resultText = result
+                resultVisibility = VISIBLE
+                notifyChange()
+            }
+
+            override fun onFinish() {
+                if(resultVisibility == VISIBLE) replayClick()
+            }
+
+        }
+        timer.start()
+
     }
 
     @Transient

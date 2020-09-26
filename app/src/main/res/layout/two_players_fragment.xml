@@ -30,6 +30,13 @@
         <androidx.constraintlayout.widget.Guideline
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:id="@+id/topGL"
+            app:layout_constraintGuide_percent="0.02"
+            android:orientation="horizontal"/>
+
+        <androidx.constraintlayout.widget.Guideline
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:id="@+id/gameTopHorizontalGL"
             app:layout_constraintGuide_percent="0.40"
             android:orientation="horizontal"/>
@@ -101,6 +108,33 @@
             app:layout_constraintTop_toBottomOf="@id/gameTopGL"
             app:layout_constraintBottom_toTopOf="@id/gameBottomGL"/>
 
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/backwardButton"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            style="@style/Widget.MaterialComponents.Button.TextButton"
+            android:onClick="@{(view) -> viewModel.backwardClick(view)}"
+            app:icon="@drawable/ic_baseline_arrow_back_24"
+            app:iconGravity="textStart"
+            app:layout_constraintTop_toBottomOf="@id/topGL"
+            app:layout_constraintStart_toEndOf="@id/startGL"
+            app:layout_constraintBottom_toTopOf="@id/gameTopGL"
+            app:layout_constraintEnd_toStartOf="@id/gameStartVerticalGL"/>
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/replayButton"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            style="@style/Widget.MaterialComponents.Button.TextButton"
+            app:icon="@drawable/ic_baseline_replay_24"
+            app:iconGravity="textStart"
+            android:onClick="@{() -> viewModel.replayClick()}"
+            app:layout_constraintTop_toBottomOf="@id/topGL"
+            app:layout_constraintStart_toEndOf="@id/gameEndVerticalGL"
+            app:layout_constraintBottom_toTopOf="@id/gameTopGL"
+            app:layout_constraintEnd_toStartOf="@id/endGL"/>
+
         <Button
             android:id="@+id/button"
             android:layout_width="0dp"
@@ -113,6 +147,7 @@
             app:layout_constraintEnd_toStartOf="@id/gameStartVerticalGL"
             app:layout_constraintTop_toBottomOf="@id/gameTopGL"
             app:layout_constraintBottom_toTopOf="@id/gameTopHorizontalGL"/>
+
 
         <Button
             android:id="@+id/button2"
@@ -217,6 +252,22 @@
             app:layout_constraintEnd_toStartOf="@id/endGL"
             app:layout_constraintTop_toBottomOf="@id/gameBottomHorizontalGL"
             app:layout_constraintBottom_toTopOf="@id/gameBottomGL"/>
+
+        <TextView
+            android:id="@+id/resultTV"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:gravity="center"
+            android:text="@{viewModel.resultText}"
+            android:visibility="@{viewModel.resultVisibility}"
+            android:textSize="80sp"
+            android:textStyle="bold"
+            android:background="@color/teal_700"
+            style="@style/Widget.MaterialComponents.TextView"
+            app:layout_constraintBottom_toTopOf="@id/gameBottomGL"
+            app:layout_constraintEnd_toStartOf="@id/endGL"
+            app:layout_constraintStart_toEndOf="@id/startGL"
+            app:layout_constraintTop_toBottomOf="@id/gameTopGL" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
