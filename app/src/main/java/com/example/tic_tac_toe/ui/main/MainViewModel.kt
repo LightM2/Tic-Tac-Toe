@@ -8,7 +8,6 @@ import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.navigation.findNavController
 import com.example.tic_tac_toe.R
-import kotlinx.android.synthetic.main.main_fragment.view.*
 
 class MainViewModel
 @ViewModelInject
@@ -22,8 +21,9 @@ constructor(
         Log.d(TAG, "Navigation mast work")
 
         when (view.id){
-            R.id.two_players_button -> view.findNavController().navigate(R.id.action_mainFragment_to_twoPlayersFragment)
-            else -> Log.d(TAG, "not two players")
+            R.id.twoPlayersButton -> view.findNavController().navigate(R.id.action_mainFragment_to_twoPlayersFragment)
+            R.id.onePlayerButton -> view.findNavController().navigate(R.id.action_mainFragment_to_onePlayerLevelFragment)
+            else -> Log.d(TAG, "not one or two player/s")
         }
     }
 

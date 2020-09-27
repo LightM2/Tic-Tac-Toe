@@ -2,4 +2,6 @@
     <string name="app_name">Tic-Tac-Toe</string>
     <string name="one_player_string">One Player</string>
     <string name="two_players_string">Two Players</string>
+    <string name="easy_level_string">Easy</string>
+    <string name="hard_level_string">Hard</string>
 </resources>

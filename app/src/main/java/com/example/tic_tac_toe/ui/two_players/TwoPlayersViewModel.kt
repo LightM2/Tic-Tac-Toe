@@ -9,6 +9,7 @@ import androidx.databinding.Observable
 import androidx.databinding.PropertyChangeRegistry
 import androidx.hilt.Assisted
 import androidx.hilt.lifecycle.ViewModelInject
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.navigation.findNavController
@@ -33,9 +34,24 @@ constructor(
             Cell(2,0), Cell(2,1), Cell(2,2)
     )
 
+    private val xMove: MutableLiveData<MutableList<Int>> = MutableLiveData(mutableListOf(0,0,0,
+            0,0,0,
+            0,0,0))
+
+    private val oMove: MutableLiveData<MutableList<Int>> = MutableLiveData(mutableListOf(0,0,0,
+            0,0,0,
+            0,0,0))
+
     fun replayClick(){
         board.forEach { it.clear() }
         resultVisibility = INVISIBLE
+        xMove.value = mutableListOf(0,0,0,
+                0,0,0,
+                0,0,0)
+        oMove.value = mutableListOf(0,0,0,
+                0,0,0,
+                0,0,0)
+        lastMove = ""
         notifyChange()
     }
 
@@ -64,6 +80,7 @@ constructor(
                 else -> "e"
             }
 
+            addMove(position, board[position].content)
             board[position].text = lastMove
 
             notifyChange()
@@ -74,10 +91,18 @@ constructor(
 
     }
 
+    private fun addMove(position: Int, seed: Seed){
+        when (seed){
+            Seed.X -> xMove.value?.set(position, 1)
+            Seed.O -> oMove.value?.set(position, 1)
+            else -> Log.d(TAG, "Seed.EMPTY")
+        }
+    }
+
     private fun win(){
         val notEmptyCell = board.count { it.content != Seed.EMPTY }
 
-        val winCombination: List<List<Int>> = listOf(
+        val winCombination: List<List<Int>?> = listOf(
                 listOf(1,1,1, 0,0,0, 0,0,0),
                 listOf(0,0,0, 1,1,1, 0,0,0),
                 listOf(0,0,0, 0,0,0, 1,1,1),
@@ -89,36 +114,34 @@ constructor(
         )
 
 
-        if (notEmptyCell >= 5){
-            val xMove = mutableListOf<Int>(0,0,0,
-                    0,0,0,
-                    0,0,0)
-            val oMove = mutableListOf<Int>(0,0,0,
-                    0,0,0,
-                    0,0,0)
+        /*val xMove = mutableListOf<Int>(0,0,0,
+                0,0,0,
+                0,0,0)
+        val oMove = mutableListOf<Int>(0,0,0,
+                0,0,0,
+                0,0,0)
 
-            for (i in 0 until board.size){
-                when (board[i].content){
-                    Seed.X -> xMove[i] = 1
-                    Seed.O -> oMove[i] = 1
-                }
+        for (i in 0 until board.size){
+            when (board[i].content){
+                Seed.X -> xMove[i] = 1
+                Seed.O -> oMove[i] = 1
             }
+        }*/
 
-            when {
-                winCombination.contains(xMove) -> {
-                    showResult("X Win")
-                    Log.d(TAG, "X win")
-                }
-                winCombination.contains(oMove) -> {
-                    showResult("O Win")
-                    Log.d(TAG, "O win")
-                }
-                notEmptyCell == board.size -> {
-                    showResult("Dead Heat")
-                    Log.d(TAG, "Dead heat")
-                }
+
+        when {
+            winCombination.contains(xMove.value) -> {
+                showResult("X Win")
+                Log.d(TAG, "X win")
             }
-
+            winCombination.contains(oMove.value) -> {
+                showResult("O Win")
+                Log.d(TAG, "O win")
+            }
+            notEmptyCell == board.size -> {
+                showResult("Dead Heat")
+                Log.d(TAG, "Dead heat")
+            }
         }
     }
 
