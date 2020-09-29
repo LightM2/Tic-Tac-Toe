@@ -21,8 +21,9 @@ constructor(
         Log.d(TAG, "Navigation mast work")
 
         when (view.id){
-            //R.id.two_players_button -> view.findNavController().navigate(R.id.action_mainFragment_to_twoPlayersFragment)
-            else -> Log.d(TAG, "not two players")
+            R.id.hard_level_button -> view.findNavController().navigate(R.id.action_onePlayerLevelFragment_to_onePlayerHardFragment)
+
+            else -> Log.d(TAG, "not hard")
         }
     }
 

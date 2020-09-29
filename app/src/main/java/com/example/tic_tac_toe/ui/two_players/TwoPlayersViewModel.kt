@@ -113,22 +113,6 @@ constructor(
                 listOf(0,0,1, 0,1,0, 1,0,0)
         )
 
-
-        /*val xMove = mutableListOf<Int>(0,0,0,
-                0,0,0,
-                0,0,0)
-        val oMove = mutableListOf<Int>(0,0,0,
-                0,0,0,
-                0,0,0)
-
-        for (i in 0 until board.size){
-            when (board[i].content){
-                Seed.X -> xMove[i] = 1
-                Seed.O -> oMove[i] = 1
-            }
-        }*/
-
-
         when {
             winCombination.contains(xMove.value) -> {
                 showResult("X Win")
