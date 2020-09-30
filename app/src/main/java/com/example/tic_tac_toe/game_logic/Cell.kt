@@ -1,4 +1,4 @@
-package com.example.tic_tac_toe.ui.two_players
+package com.example.tic_tac_toe.game_logic
 
 class Cell(val row: Int, val col: Int) {
     var content: Seed = Seed.EMPTY
