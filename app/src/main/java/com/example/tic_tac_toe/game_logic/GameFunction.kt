@@ -54,7 +54,7 @@ fun bestMove(board: MutableList<MutableList<Cell>>,
         for (j in 0 until board[i].size) {
             if (board[i][j].content == Seed.EMPTY) {
                 addMove(board, xMove, oMove, Pair(i,j), Seed.O)
-                val score = mimMax(board, xMove, oMove,0, false)
+                val score = miniMax(board, xMove, oMove,0, false)
                 removeMove(board, xMove, oMove, Pair(i,j), Seed.O)
                 if (score < bestScore) {
                     bestScore = score
@@ -66,10 +66,10 @@ fun bestMove(board: MutableList<MutableList<Cell>>,
     addMove(board, xMove, oMove, move, Seed.O)
 }
 
-private fun mimMax(board: MutableList<MutableList<Cell>>,
-           xMove: MutableLiveData<MutableList<MutableList<Int>>>,
-           oMove: MutableLiveData<MutableList<MutableList<Int>>>,
-           depth: Int, isMaximizing: Boolean): Int{
+private fun miniMax(board: MutableList<MutableList<Cell>>,
+                    xMove: MutableLiveData<MutableList<MutableList<Int>>>,
+                    oMove: MutableLiveData<MutableList<MutableList<Int>>>,
+                    depth: Int, isMaximizing: Boolean): Int{
     if (win(xMove, oMove) != null) return win(xMove, oMove)!!
 
     if (isMaximizing){
@@ -78,7 +78,7 @@ private fun mimMax(board: MutableList<MutableList<Cell>>,
             for (j in 0 until board[i].size) {
                 if (board[i][j].content == Seed.EMPTY) {
                     addMove(board, xMove, oMove, Pair(i, j), Seed.O)
-                    val score = mimMax(board, xMove, oMove,depth + 1, false)
+                    val score = miniMax(board, xMove, oMove,depth + 1, false)
                     removeMove(board, xMove, oMove, Pair(i, j), Seed.O)
                     bestScore = min(score, bestScore)
                 }
@@ -91,7 +91,7 @@ private fun mimMax(board: MutableList<MutableList<Cell>>,
             for (j in 0 until board[i].size) {
                 if (board[i][j].content == Seed.EMPTY) {
                     addMove(board, xMove, oMove, Pair(i, j), Seed.X)
-                    val score = mimMax(board, xMove, oMove,depth + 1, true)
+                    val score = miniMax(board, xMove, oMove,depth + 1, true)
                     removeMove(board, xMove, oMove, Pair(i, j), Seed.X)
                     bestScore = max(score, bestScore)
                 }
@@ -100,6 +100,25 @@ private fun mimMax(board: MutableList<MutableList<Cell>>,
         return bestScore
     }
 }
+
+
+fun worstMove(board: MutableList<MutableList<Cell>>,
+              xMove: MutableLiveData<MutableList<MutableList<Int>>>,
+              oMove: MutableLiveData<MutableList<MutableList<Int>>>){
+    val emptyPositions: MutableList<Cell> = mutableListOf()
+    board.forEach { row ->
+        row.forEach {
+            if (it.content == Seed.EMPTY){
+                emptyPositions.add(it)
+            }
+        }
+    }
+    val randomEmptyCell = emptyPositions[(0 until emptyPositions.size).random()]
+    addMove(board, xMove, oMove, randomEmptyCell.rowAndCol , Seed.O)
+
+}
+
+
 
 fun win(xMove: MutableLiveData<MutableList<MutableList<Int>>>,
         oMove: MutableLiveData<MutableList<MutableList<Int>>>): Int?{

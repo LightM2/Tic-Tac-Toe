@@ -22,8 +22,8 @@ constructor(
 
         when (view.id){
             R.id.hard_level_button -> view.findNavController().navigate(R.id.action_onePlayerLevelFragment_to_onePlayerHardFragment)
-
-            else -> Log.d(TAG, "not hard")
+            R.id.easy_level_button -> view.findNavController().navigate(R.id.action_onePlayerLevelFragment_to_onePlayerEasyFragment)
+            else -> Log.d(TAG, "not hard or easy")
         }
     }
 

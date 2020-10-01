@@ -31,9 +31,17 @@
             android:id="@+id/action_onePlayerLevelFragment_to_onePlayerHardFragment"
             app:destination="@id/onePlayerHardFragment"
             app:popUpTo="@id/mainFragment" />
+        <action
+            android:id="@+id/action_onePlayerLevelFragment_to_onePlayerEasyFragment"
+            app:destination="@id/onePlayerEasyFragment"
+            app:popUpTo="@id/mainFragment" />
     </fragment>
     <fragment
         android:id="@+id/onePlayerHardFragment"
         android:name="com.example.tic_tac_toe.ui.one_player_hard.OnePlayerHardFragment"
         android:label="OnePlayerHardFragment" />
+    <fragment
+        android:id="@+id/onePlayerEasyFragment"
+        android:name="com.example.tic_tac_toe.ui.one_player_easy.OnePlayerEasyFragment"
+        android:label="OnePlayerEasyFragment" />
 </navigation>

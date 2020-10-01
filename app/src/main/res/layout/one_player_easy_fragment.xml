@@ -1,0 +1,284 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <data>
+        <variable
+            name="viewModel"
+            type="com.example.tic_tac_toe.ui.one_player_easy.OnePlayerEasyViewModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <androidx.constraintlayout.widget.Guideline
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/startGL"
+            app:layout_constraintGuide_percent="0.05"
+            android:orientation="vertical"/>
+
+        <androidx.constraintlayout.widget.Guideline
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/endGL"
+            app:layout_constraintGuide_percent="0.95"
+            android:orientation="vertical"/>
+
+        <androidx.constraintlayout.widget.Guideline
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/topGL"
+            app:layout_constraintGuide_percent="0.02"
+            android:orientation="horizontal"/>
+
+        <androidx.constraintlayout.widget.Guideline
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/gameTopHorizontalGL"
+            app:layout_constraintGuide_percent="0.40"
+            android:orientation="horizontal"/>
+
+        <androidx.constraintlayout.widget.Guideline
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/gameBottomHorizontalGL"
+            app:layout_constraintGuide_percent="0.65"
+            android:orientation="horizontal"/>
+
+        <androidx.constraintlayout.widget.Guideline
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/gameTopGL"
+            app:layout_constraintGuide_percent="0.15"
+            android:orientation="horizontal"/>
+
+        <androidx.constraintlayout.widget.Guideline
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/gameBottomGL"
+            app:layout_constraintGuide_percent="0.90"
+            android:orientation="horizontal"/>
+
+        <androidx.constraintlayout.widget.Guideline
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/gameStartVerticalGL"
+            app:layout_constraintGuide_percent="0.35"
+            android:orientation="vertical"/>
+
+        <androidx.constraintlayout.widget.Guideline
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/gameEndVerticalGL"
+            app:layout_constraintGuide_percent="0.65"
+            android:orientation="vertical"/>
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="5dp"
+            android:background="@color/teal_200"
+            app:layout_constraintStart_toEndOf="@id/startGL"
+            app:layout_constraintEnd_toStartOf="@id/endGL"
+            app:layout_constraintBottom_toTopOf="@id/gameTopHorizontalGL"/>
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="5dp"
+            android:background="@color/teal_200"
+            app:layout_constraintStart_toEndOf="@id/startGL"
+            app:layout_constraintEnd_toStartOf="@id/endGL"
+            app:layout_constraintBottom_toTopOf="@id/gameBottomHorizontalGL"/>
+
+        <View
+            android:layout_width="5dp"
+            android:layout_height="0dp"
+            android:background="@color/teal_200"
+            app:layout_constraintEnd_toStartOf="@id/gameStartVerticalGL"
+            app:layout_constraintTop_toBottomOf="@id/gameTopGL"
+            app:layout_constraintBottom_toTopOf="@id/gameBottomGL"/>
+
+        <View
+            android:layout_width="5dp"
+            android:layout_height="0dp"
+            android:background="@color/teal_200"
+            app:layout_constraintEnd_toStartOf="@id/gameEndVerticalGL"
+            app:layout_constraintTop_toBottomOf="@id/gameTopGL"
+            app:layout_constraintBottom_toTopOf="@id/gameBottomGL"/>
+
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/backwardButton"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            style="@style/Widget.MaterialComponents.Button.TextButton"
+            android:onClick="@{(view) -> viewModel.backwardClick(view)}"
+            app:icon="@drawable/ic_baseline_arrow_back_24"
+            app:iconGravity="textStart"
+            app:layout_constraintTop_toBottomOf="@id/topGL"
+            app:layout_constraintStart_toEndOf="@id/startGL"
+            app:layout_constraintBottom_toTopOf="@id/gameTopGL"
+            app:layout_constraintEnd_toStartOf="@id/gameStartVerticalGL"/>
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/replayButton"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            style="@style/Widget.MaterialComponents.Button.TextButton"
+            app:icon="@drawable/ic_baseline_replay_24"
+            app:iconGravity="textStart"
+            android:onClick="@{() -> viewModel.replayClick()}"
+            app:layout_constraintTop_toBottomOf="@id/topGL"
+            app:layout_constraintStart_toEndOf="@id/gameEndVerticalGL"
+            app:layout_constraintBottom_toTopOf="@id/gameTopGL"
+            app:layout_constraintEnd_toStartOf="@id/endGL"/>
+
+        <Button
+            android:id="@+id/button"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:autoSizeTextType="uniform"
+            style="@style/Widget.MaterialComponents.Button.TextButton"
+            android:onClick="@{(view) -> viewModel.onClick(viewModel.board.get(0).get(0))}"
+            android:clickable="@{viewModel.board.get(0).get(0).buttonClickable}"
+            android:text="@{viewModel.board.get(0).get(0).text}"
+            app:layout_constraintStart_toEndOf="@id/startGL"
+            app:layout_constraintEnd_toStartOf="@id/gameStartVerticalGL"
+            app:layout_constraintTop_toBottomOf="@id/gameTopGL"
+            app:layout_constraintBottom_toTopOf="@id/gameTopHorizontalGL"/>
+
+
+        <Button
+            android:id="@+id/button2"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:autoSizeTextType="uniform"
+            style="@style/Widget.MaterialComponents.Button.TextButton"
+            android:onClick="@{(view) -> viewModel.onClick(viewModel.board.get(0).get(1))}"
+            android:clickable="@{viewModel.board.get(0).get(1).buttonClickable}"
+            android:text="@{viewModel.board.get(0).get(1).text}"
+            app:layout_constraintStart_toEndOf="@id/gameStartVerticalGL"
+            app:layout_constraintEnd_toStartOf="@id/gameEndVerticalGL"
+            app:layout_constraintTop_toBottomOf="@id/gameTopGL"
+            app:layout_constraintBottom_toTopOf="@id/gameTopHorizontalGL"/>
+
+        <Button
+            android:id="@+id/button3"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:autoSizeTextType="uniform"
+            style="@style/Widget.MaterialComponents.Button.TextButton"
+            android:onClick="@{(view) -> viewModel.onClick(viewModel.board.get(0).get(2))}"
+            android:clickable="@{viewModel.board.get(0).get(2).buttonClickable}"
+            android:text="@{viewModel.board.get(0).get(2).text}"
+            app:layout_constraintStart_toEndOf="@id/gameEndVerticalGL"
+            app:layout_constraintEnd_toStartOf="@id/endGL"
+            app:layout_constraintTop_toBottomOf="@id/gameTopGL"
+            app:layout_constraintBottom_toTopOf="@id/gameTopHorizontalGL"/>
+
+        <Button
+            android:id="@+id/button4"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:autoSizeTextType="uniform"
+            style="@style/Widget.MaterialComponents.Button.TextButton"
+            android:onClick="@{(view) -> viewModel.onClick(viewModel.board.get(1).get(0))}"
+            android:clickable="@{viewModel.board.get(1).get(0).buttonClickable}"
+            android:text="@{viewModel.board.get(1).get(0).text}"
+            app:layout_constraintStart_toEndOf="@id/startGL"
+            app:layout_constraintEnd_toStartOf="@id/gameStartVerticalGL"
+            app:layout_constraintTop_toBottomOf="@id/gameTopHorizontalGL"
+            app:layout_constraintBottom_toTopOf="@id/gameBottomHorizontalGL"/>
+
+        <Button
+            android:id="@+id/button5"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:autoSizeTextType="uniform"
+            style="@style/Widget.MaterialComponents.Button.TextButton"
+            android:onClick="@{(view) -> viewModel.onClick(viewModel.board.get(1).get(1))}"
+            android:clickable="@{viewModel.board.get(1).get(1).buttonClickable}"
+            android:text="@{viewModel.board.get(1).get(1).text}"
+            app:layout_constraintStart_toEndOf="@id/gameStartVerticalGL"
+            app:layout_constraintEnd_toStartOf="@id/gameEndVerticalGL"
+            app:layout_constraintTop_toBottomOf="@id/gameTopHorizontalGL"
+            app:layout_constraintBottom_toTopOf="@id/gameBottomHorizontalGL"/>
+
+        <Button
+            android:id="@+id/button6"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:autoSizeTextType="uniform"
+            style="@style/Widget.MaterialComponents.Button.TextButton"
+            android:onClick="@{(view) -> viewModel.onClick(viewModel.board.get(1).get(2))}"
+            android:clickable="@{viewModel.board.get(1).get(2).buttonClickable}"
+            android:text="@{viewModel.board.get(1).get(2).text}"
+            app:layout_constraintStart_toEndOf="@id/gameEndVerticalGL"
+            app:layout_constraintEnd_toStartOf="@id/endGL"
+            app:layout_constraintTop_toBottomOf="@id/gameTopHorizontalGL"
+            app:layout_constraintBottom_toTopOf="@id/gameBottomHorizontalGL"/>
+
+        <Button
+            android:id="@+id/button7"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:autoSizeTextType="uniform"
+            style="@style/Widget.MaterialComponents.Button.TextButton"
+            android:onClick="@{(view) -> viewModel.onClick(viewModel.board.get(2).get(0))}"
+            android:clickable="@{viewModel.board.get(2).get(0).buttonClickable}"
+            android:text="@{viewModel.board.get(2).get(0).text}"
+            app:layout_constraintStart_toEndOf="@id/startGL"
+            app:layout_constraintEnd_toStartOf="@id/gameStartVerticalGL"
+            app:layout_constraintTop_toBottomOf="@id/gameBottomHorizontalGL"
+            app:layout_constraintBottom_toTopOf="@id/gameBottomGL"/>
+
+        <Button
+            android:id="@+id/button8"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:autoSizeTextType="uniform"
+            style="@style/Widget.MaterialComponents.Button.TextButton"
+            android:onClick="@{(view) -> viewModel.onClick(viewModel.board.get(2).get(1))}"
+            android:clickable="@{viewModel.board.get(2).get(1).buttonClickable}"
+            android:text="@{viewModel.board.get(2).get(1).text}"
+            app:layout_constraintStart_toEndOf="@id/gameStartVerticalGL"
+            app:layout_constraintEnd_toStartOf="@id/gameEndVerticalGL"
+            app:layout_constraintTop_toBottomOf="@id/gameBottomHorizontalGL"
+            app:layout_constraintBottom_toTopOf="@id/gameBottomGL"/>
+
+        <Button
+            android:id="@+id/button9"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:autoSizeTextType="uniform"
+            style="@style/Widget.MaterialComponents.Button.TextButton"
+            android:onClick="@{(view) -> viewModel.onClick(viewModel.board.get(2).get(2))}"
+            android:clickable="@{viewModel.board.get(2).get(2).buttonClickable}"
+            android:text="@{viewModel.board.get(2).get(2).text}"
+            app:layout_constraintStart_toEndOf="@id/gameEndVerticalGL"
+            app:layout_constraintEnd_toStartOf="@id/endGL"
+            app:layout_constraintTop_toBottomOf="@id/gameBottomHorizontalGL"
+            app:layout_constraintBottom_toTopOf="@id/gameBottomGL"/>
+
+        <TextView
+            android:id="@+id/resultTV"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:gravity="center"
+            android:text="@{viewModel.resultText}"
+            android:visibility="@{viewModel.resultVisibility}"
+            android:textSize="80sp"
+            android:textStyle="bold"
+            android:background="@color/teal_700"
+            style="@style/Widget.MaterialComponents.TextView"
+            app:layout_constraintBottom_toTopOf="@id/gameBottomGL"
+            app:layout_constraintEnd_toStartOf="@id/endGL"
+            app:layout_constraintStart_toEndOf="@id/startGL"
+            app:layout_constraintTop_toBottomOf="@id/gameTopGL" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>
